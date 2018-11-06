@@ -7,11 +7,10 @@ import os
 
 
 CAM_ID = 0
-path = os.getcwd()
-full_path=path + '/Save'
-t= time.localtime()
-name = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
-print(name)
+path = os.getcwd()  #경로따오
+full_path=path + '/Save'        #사진 찍히면 저장되는 폴더경
+name = datetime.datetime.now().strftime("%y%m%d_%H%M%S") #시간스탬//
+
 
 def capture(camid = CAM_ID):
 
@@ -40,16 +39,16 @@ def capture(camid = CAM_ID):
             cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),3, 4, 0)
 
         cv2.imshow('Face',frame)
-
-        # png로 압축 없이 영상 저장
+        time.sleep(3)
+        # png로 압축 없이 영상 저장t= time.localtime()
+        #사진 저장 하는 라이브러리
         cv2.imwrite(os.path.join(full_path, name + '.jpg' ), frame, params=[cv2.IMWRITE_JPEG_QUALITY,100])
         #cv2.imwrite(name+'.jpg',frame, params=[cv2.IMWRITE_JPEG_QUALITY,100])
-
+        print(name)
         time.sleep(1)
+        cam.release()
+        cv2.destroyWindow('Face')
         break;
-
-    cam.release()
-    cv2.destroyWindow('Face')
 
 
 def featureMatching():
@@ -65,7 +64,7 @@ def featureMatching():
     matches = bf.match(des1, des2)
 
     matches = sorted(matches, key=lambda x:x.distance)
-    res = cv2.drawMatches(img1, kb1, img2, kb2, matches[:30], res, flags=0)
+    res = cv2.drawMatches(img1, kb1, img2, kb2, matches[:30], res, singlePointColor=(0, 255, 0), matchColor=(255,0,0), flags = 0)
 
     cv2.imshow('feature Matching', res)
     cv2.waitKey(0)
