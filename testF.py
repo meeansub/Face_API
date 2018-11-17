@@ -3,7 +3,7 @@ import cv2
 import datetime
 import time
 import os
-
+import face_recognition
 
 
 CAM_ID = 0
@@ -23,6 +23,7 @@ def capture(camid = CAM_ID):
 
     face_cascade = cv2.CascadeClassifier()
     face_cascade.load('/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml')
+
     while(True):
         ret, frame = cam.read()
 
@@ -50,7 +51,6 @@ def capture(camid = CAM_ID):
         cv2.destroyWindow('Face')
         break;
 
-
 def featureMatching():
     img1 = cv2.imread(path+'/face_save/test123.jpg',0)
     img2 = cv2.imread(path+'/Save/'+name+'.jpg',0)
@@ -66,9 +66,15 @@ def featureMatching():
     matches = sorted(matches, key=lambda x:x.distance)
     res = cv2.drawMatches(img1, kb1, img2, kb2, matches[:30], res, singlePointColor=(0, 255, 0), matchColor=(255,0,0), flags = 0)
 
+    cv.ImageSimilarity(img1, img2, function(err, dissimilarity){
+    if (err) throw err;
+    console.log('dissimilarity: ', dissimilarity)
+    } )
     cv2.imshow('feature Matching', res)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+
 
 if __name__ == '__main__':
     capture()
