@@ -1,5 +1,5 @@
 # face_recog.py
-
+#!/usr/bin/python
 import face_recognition
 import cv2
 import camera
