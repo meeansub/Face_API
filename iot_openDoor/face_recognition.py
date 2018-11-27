@@ -68,14 +68,24 @@ while True:
             id = names[id]
             confidence = "  {0}".format(round(100 - confidence))
 
+            # 얼굴인식 일치 정도가 60% 이상일때
             if (int(confidence) > 60):
 
+                # 출입로그에 저장할 값, 이름, 현재시간
                 file_data["name"] = id
                 file_data["dateTime"] =datetime.datetime.now().strftime("%Y-%m-%d//%H:%M:%S")
                 print(json.dumps(file_data))
 
+                # 출입로그 save
                 with open('result/' + id + '.json', 'w') as make_file:
                     json.dump(file_data, make_file)
+
+
+                # Save the captured image into 출입 성공 시(얼굴인식 성공시)
+                cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
+                cv2.imwrite("successCap/"+ id + ".jpg", gray[y:y+h,x:x+w])
+                cv2.imshow('image', img)
+
 
                 print("얼굴인식이 되었습니다. 문이 열립니다.")
                 face_recog_state = True
