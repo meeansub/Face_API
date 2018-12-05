@@ -14,6 +14,10 @@ import os
 import json
 from collections import OrderedDict
 import datetime
+import sys
+
+newCode="sudo modprobe bcm2835-v4l2"
+os.system(newCode)
 
 # 얼굴인식 값 json 파일 변수, 이름, 날짜(시간포함)
 file_data = OrderedDict()
@@ -83,7 +87,7 @@ while True:
 
                 # Save the captured image into 출입 성공 시(얼굴인식 성공시)
                 cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
-                cv2.imwrite("successCap/"+ id + ".jpg", gray[y:y+h,x:x+w])
+                cv2.imwrite("successCap/"+ id + ".png", gray[y:y+h,x:x+w])
                 cv2.imshow('image', img)
 
 

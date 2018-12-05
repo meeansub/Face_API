@@ -10,7 +10,10 @@ Developed by Marcelo Rovai - MJRoBot.org @ 21Feb18
 '''
 
 import cv2
-import os
+import os,sys
+
+newCode="sudo modprobe bcm2835-v4l2"
+os.system(newCode)
 
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video width
@@ -55,8 +58,8 @@ while(True):
         count += 1
 
         # Save the captured image into the datasets folder
-        cv2.imwrite("dataset/"+str(face_id)+"/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
-        # cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
+        cv2.imwrite("dataset/"+str(face_id)+"/User." + str(face_id) + '.' + str(count) + ".png", gray[y:y+h,x:x+w])
+        # cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".png", gray[y:y+h,x:x+w])
         cv2.imshow('image', img)
 
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
