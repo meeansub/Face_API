@@ -16,7 +16,8 @@ from PIL import Image
 import os
 
 import faceSet
-path = 'dataset/'+faceSet.input_face_ID
+path = 'dataset/'
+#path = 'dataset/'+faceSet.input_face_ID
 
 # For each person, enter one numeric face id
 # face_id = input('\n enter user id end press <return> ==>  ')

@@ -1,12 +1,3 @@
-''''
-Real Time Face Recogition
-	==> Each face stored on dataset/ dir, should have a unique numeric integer ID as 1, 2, 3, etc                       
-	==> LBPH computed model (trained faces) should be on trainer/ dir
-Based on original code by Anirban Kar: https://github.com/thecodacus/Face-Recognition    
-
-Developed by Marcelo Rovai - MJRoBot.org @ 21Feb18  
-
-'''
 
 import cv2
 import numpy as np
@@ -28,9 +19,18 @@ def successCap(id):
                 cv2.imwrite("successCap/"+ id + ".png", gray[y:y+h,x:x+w])
                 cv2.imshow('image', img)
                 return  True
-
-
-
+                
+# 출입성공시 출입로그 json 저장
+def create_json(id):
+                # 출입로그에 저장할 값: 이름, 현재시간
+                file_data["name"] = id
+                file_data["dateTime"] =datetime.datetime.now().strftime("%Y-%m-%d//%H:%M:%S")
+                print(json.dumps(file_data))
+                
+                # 출입로그 save
+                with open('result/' + id + '.json', 'w') as make_file:
+                    json.dump(file_data, make_file)
+    
 # 얼굴 트레이너 불러오기
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read('trainer/trainer.yml')
@@ -82,17 +82,11 @@ while True:
             confidence = "  {0}".format(round(100 - confidence))
 
             # 얼굴인식 일치 정도가 60% 이상일때
-            if (int(confidence) > 50):
+            if (int(confidence) > 70):
 
-                # 출입로그에 저장할 값, 이름, 현재시간
-                file_data["name"] = id
-                file_data["dateTime"] =datetime.datetime.now().strftime("%Y-%m-%d//%H:%M:%S")
-                print(json.dumps(file_data))
-
-                # 출입로그 save
-                with open('result/' + id + '.json', 'w') as make_file:
-                    json.dump(file_data, make_file)
-
+                # 출입성공시 출입로그 json 저장
+                create_json(id)
+                
                 # 출입성공시 캡쳐, 얼굴인식상태 true
                 face_recog_state=successCap(id)
 

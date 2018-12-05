@@ -35,13 +35,13 @@ count = 0
 
 # dataset 에 id 값으로된 폴더 생성
 # 폴더안에 찍힌사진 저장
-try:
-    if not(os.path.isdir("dataset/"+str(face_id))):
-        os.makedirs(os.path.join("dataset/"+str(face_id)))
-except OSError as e:
-    if e.errno != errno.EEXIST:
-        print("Failed to create directory!!!!!")
-        raise
+#try:
+#   if not(os.path.isdir("dataset/"+str(face_id))):
+#            os.makedirs(os.path.join("dataset/"+str(face_id)))
+#except OSError as e:
+#   if e.errno != errno.EEXIST:
+#       print("Failed to create directory!!!!!")
+#        raise
 
 
 # 사진 찍는 코드
@@ -58,8 +58,8 @@ while(True):
         count += 1
 
         # Save the captured image into the datasets folder
-        cv2.imwrite("dataset/"+str(face_id)+"/User." + str(face_id) + '.' + str(count) + ".png", gray[y:y+h,x:x+w])
-        # cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".png", gray[y:y+h,x:x+w])
+        # cv2.imwrite("dataset/"+str(face_id)+"/User." + str(face_id) + '.' + str(count) + ".png", gray[y:y+h,x:x+w])
+        cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".png", gray[y:y+h,x:x+w])
         cv2.imshow('image', img)
 
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video

@@ -7,7 +7,7 @@ s3  = boto3.resource('s3') # s3객체생성
 for bucket in s3.buckets.all():
     print(bucket.name)
 
-file = 'taehoon.png' #파일 경로, default는 py파일 폴더와 같음
+file = 'minsub.png' #파일 경로, default는 py파일 폴더와 같음
 data = open(file, 'rb') #파일 읽기전용으로 오픈
 
 # 파일 업로드 메소드 만들기
