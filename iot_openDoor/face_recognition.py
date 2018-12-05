@@ -13,6 +13,8 @@ os.system(newCode)
 # 얼굴인식 값 json 파일 변수, 이름, 날짜(시간포함)
 file_data = OrderedDict()
 
+face_name="unkown"
+
 # Save the captured image into 출입 성공 시(얼굴인식 성공시)
 def successCap(id):
                 cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
@@ -82,14 +84,16 @@ while True:
             confidence = "  {0}".format(round(100 - confidence))
 
             # 얼굴인식 일치 정도가 60% 이상일때
-            if (int(confidence) > 70):
+            if (int(confidence) > 50):
 
                 # 출입성공시 출입로그 json 저장
                 create_json(id)
                 
                 # 출입성공시 캡쳐, 얼굴인식상태 true
                 face_recog_state=successCap(id)
-
+                
+                face_name=id
+                
                 print("얼굴인식이 되었습니다. 문이 열립니다.")
                 
 
