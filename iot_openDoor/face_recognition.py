@@ -84,7 +84,7 @@ while True:
             confidence = "  {0}".format(round(100 - confidence))
 
             # 얼굴인식 일치 정도가 60% 이상일때
-            if (int(confidence) > 50):
+            if (int(confidence) > 70):
 
                 # 출입성공시 출입로그 json 저장
                 create_json(id)
