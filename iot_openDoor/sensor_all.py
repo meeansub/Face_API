@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import RPi.GPIO as GPIO
 import time
 
@@ -5,17 +7,21 @@ GPIO.setmode(GPIO.BCM)
 
 sensor = 23
 
-GPIO.setup(sensor, GPIO.IN)
 
 
-print "Waiting for sensor to settle"
+print ("Waiting for sensor to settle")
 time.sleep(2)
 while True:
+	GPIO.setup(sensor, GPIO.IN)
+
 	if GPIO.input(sensor):
-        import sucOrFail
+		import sucOrFail
 		time.sleep(2)
+		break
+		
+	
 
-	time.sleep(2)
-	break
+	
+	
 
-GPIO.cleanup()
+

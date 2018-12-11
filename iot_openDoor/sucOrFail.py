@@ -42,7 +42,7 @@ def Camera_cctv():
     
 
 
-def aws_face_send(detect_face_name)
+def aws_face_send(detect_face_name):
 	s3= boto3.client('s3') # s3객체생성
 
 	# upload_file로 업로드하기
@@ -53,7 +53,7 @@ def aws_face_send(detect_face_name)
 	#인식 성공한 얼굴파일
 	file_name='successCap/'+detect_face_name+'.png' 
 	#s3에 png 파일 보내기
-	s3.upload_file(file_name,bucket_name,detect_face_name+'.png',ExtraArgs={'ACL':'public-read', 'ContentType': 'image/png'})
+	s3.upload_file(file_name,bucket_name,datetime.datetime.now().strftime("%Y-%m-%d")+'.png',ExtraArgs={'ACL':'public-read', 'ContentType': 'image/png'})
 
 	#인식 성공시점 로그 json 파일
 	json_name='result/'+detect_face_name+'.json' 
