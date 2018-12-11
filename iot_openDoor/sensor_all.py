@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
@@ -12,13 +13,12 @@ sensor = 23
 print ("Waiting for sensor to settle")
 time.sleep(2)
 while True:
-	GPIO.setup(sensor, GPIO.IN)
-
-	if GPIO.input(sensor):
-		import sucOrFail
-		time.sleep(2)
-		break
-		
+		GPIO.setup(sensor, GPIO.IN)
+		if GPIO.input(sensor):
+			import sucOrFail
+			time.sleep(2)
+			break
+			
 	
 
 	

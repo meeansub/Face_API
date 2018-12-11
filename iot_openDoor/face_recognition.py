@@ -88,13 +88,14 @@ minH = 0.1*cam.get(4)
 
 while True:
     state=False
-    
+    count=0
     if GPIO.input(sensor):
         print ("Motion Detected")
 
         while True:
             # 얼굴 인식전 상태
             face_recog_state = False
+            fail_state=False
             
             ret, img =cam.read()
             img = cv2.flip(img, 1) # Flip vertically
@@ -140,6 +141,12 @@ while True:
 
                     GPIO.output(Fled, True)
                     print("얼굴인식에 실패했습니다")
+                    count=count+1
+                    print(count)
+                    if count==3:
+                        fail_state=True
+                        face_recog_state=True
+                        
                     time.sleep(2)
                     break
 
