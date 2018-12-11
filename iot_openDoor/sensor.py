@@ -10,19 +10,19 @@ GPIO.setup(sensor, GPIO.IN)
 GPIO.setup(Sled, GPIO.OUT)
 GPIO.setup(Fled, GPIO.OUT)
 
-print "Waiting for sensor to settle"
+print ("Waiting for sensor to settle")
 time.sleep(2)
-print "Detecting motion"
+print ("Detecting motion")
 
 while True:
 	if GPIO.input(sensor):
-		print "Motion Detected"
+		print ("Motion Detected")
 		GPIO.output(Sled, True)
 		time.sleep(2)
 	GPIO.output(Fled, False)
 	time.sleep(2)
 
 
-print "Open Door"
+print ("Open Door")
 
 GPIO.cleanup()

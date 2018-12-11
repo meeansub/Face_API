@@ -4,14 +4,15 @@ import os
 import datetime
 
 path = 'cctv/'
+newCode="sudo modprobe bcm2835-v4l2"
 
 class Camera_cctv():
     camera = cv2.VideoCapture(0)
 
     # Define the codec and create VideoWriter object to save the video
-    fourcc = cv2.VideoWriter_fourcc('m','p','4','v')
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
-    video_writer = cv2.VideoWriter( 'output.mp4', fourcc, 30.0, (640, 480))
+    video_writer = cv2.VideoWriter( 'output.avi', fourcc, 30.0, (640, 480))
 
 
     while True:
