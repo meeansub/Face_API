@@ -10,13 +10,14 @@ sensor = 23
 
 
 
-print ("Waiting for sensor to settle")
+print ("모션 감지센서 준비중")
 time.sleep(2)
 while True:
 		GPIO.setup(sensor, GPIO.IN)
 		if GPIO.input(sensor):
-			import sucOrFail
 			time.sleep(2)
+			import sucOrFail
+			
 			break
 			
 	

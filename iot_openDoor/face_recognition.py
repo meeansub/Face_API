@@ -58,12 +58,11 @@ def failCap():
                 
 
 
-print ("waiting for sensor to settle")
 time.sleep(2)
-print ("Detecting motion")
+print ("센서 작동중")
 
 
-#iniciate id counter
+#얼굴 id 값 초기화, 초기 None
 id = 0
 
 # 얼굴 트레이너 불러오기
@@ -74,7 +73,7 @@ faceCascade = cv2.CascadeClassifier(cascadePath);
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-# names related to ids: example ==> Marcelo: id=1,  etc
+# id에 맞는 이름 출력을 위해
 names = ['None', 'minsub', 'jihoon', 'hosic', 'taehoon', 'jieun']
 
 # 얼굴인식 서비스 사용을 위한 카메라 사이즈 설정 및 시작
@@ -86,19 +85,22 @@ cam.set(4, 480) # set video height
 minW = 0.1*cam.get(3)
 minH = 0.1*cam.get(4)
 
+time.sleep(4)
+
 while True:
     state=False
     count=0
     if GPIO.input(sensor):
-        print ("Motion Detected")
-
+        print ("움직임이 감지되었습니다")
+        print ("얼굴을 인식합니다")
         while True:
             # 얼굴 인식전 상태
             face_recog_state = False
             fail_state=False
             
+            #카메라에 비춰진 상황 읽기
             ret, img =cam.read()
-            img = cv2.flip(img, 1) # Flip vertically
+            img = cv2.flip(img, 1)
 
             gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
@@ -115,7 +117,7 @@ while True:
 
                 id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
-                # Check if confidence is less them 100 ==> "0" is perfect match
+                #얼굴인식 퍼센트 100센트까지
                 if (confidence < 100):
                     id = names[id]
                     confidence = "  {0}".format(round(100 - confidence))
@@ -131,7 +133,7 @@ while True:
 
                         face_name=id
                         GPIO.output(Sled, True)
-                        print("얼굴인식이 되었습니다. 문이 열립니다.")
+                        print("얼굴인식이 되었습니다. 문이 열립니다")
                         time.sleep(2)
                     
 
@@ -139,15 +141,16 @@ while True:
                     id = "unknown"
                     confidence = "  {0}".format(round(100 - confidence))
 
-                    GPIO.output(Fled, True)
+                    
                     print("얼굴인식에 실패했습니다")
                     count=count+1
                     print(count)
-                    if count==3:
+                    if count==5:
+                        GPIO.output(Fled, True)
                         fail_state=True
                         face_recog_state=True
                         
-                    time.sleep(2)
+                    
                     break
 
                 cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
@@ -156,7 +159,7 @@ while True:
             cv2.imshow('camera',img)
 
             if face_recog_state == True:
-                time.sleep(2)
+                time.sleep(4)
                 GPIO.output(Sled, False)
                 GPIO.output(Fled, False)
                 state=True
@@ -175,7 +178,7 @@ while True:
 
 
 # Do a bit of cleanup
-print("\n [INFO] Exiting Program and cleanup stuff")
+print("\n[INFO]얼굴인식 종료")
 cam.release()
 cv2.destroyAllWindows()
 GPIO.cleanup()

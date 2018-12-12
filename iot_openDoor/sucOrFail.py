@@ -25,7 +25,7 @@ def Camera_cctv():
     
     
 	b = 0
-	
+	print("\n cctv 촬영 중\n")
 	while True:
 	
 		b = b+1
@@ -37,6 +37,7 @@ def Camera_cctv():
 	
 	
 		if b==100:
+			print("\n cctv 촬영 종료\n")
 			break
 
          # I don't really have an idea what this does, but it works..
@@ -56,14 +57,13 @@ def Camera_cctv():
 	# 버킷 이름 모두 출력
 	response = s3.list_buckets()
 	buckets = [bucket['Name'] for bucket in response['Buckets']]
-	print("Bucket List: %s 에 저장되었습니다" % buckets)
+	print("Bucket List: %s 에 ccvt 동영상이 저장되었습니다" % buckets)
 	
 	# cleanup the camera and close any open windows
 	camera.release()
 	video_writer.release()
 	cv2.destroyAllWindows()
-	print("\n\nBye bye\n")
-    
+	
 
 
 def aws_face_send(detect_face_name):
@@ -89,7 +89,7 @@ def aws_face_send(detect_face_name):
 	# 버킷 이름 모두 출력
 	response = s3.list_buckets()
 	buckets = [bucket['Name'] for bucket in response['Buckets']]
-	print("Bucket List: %s 에 저장되었습니다" % buckets)
+	print("Bucket List: %s 에 출입허가 사진이 저장되었습니다" % buckets)
 	
 	
 #실패 or 성공시 처리
