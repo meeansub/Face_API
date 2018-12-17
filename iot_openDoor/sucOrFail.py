@@ -39,10 +39,6 @@ def Camera_cctv():
 		if b==100:
 			print("\n cctv 촬영 종료\n")
 			break
-
-         # I don't really have an idea what this does, but it works..
-		if key == 27:
-			break
 	
 	# upload_file로 업로드하기
 	s3= boto3.client('s3') # s3객체생성
