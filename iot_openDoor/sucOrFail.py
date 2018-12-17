@@ -52,7 +52,8 @@ def Camera_cctv():
 	#인식 실패한 얼굴파일
 	fail='failCap/fail.avi' 
 	#s3에 png 파일 보내기
-	s3.upload_file(fail,bucket_name,datetime.datetime.now().strftime("%H:%M:%S")+'.avi',ExtraArgs={'ACL':'public-read', 'ContentType': 'video/x-msvideo'})
+	s3.upload_file(fail,bucket_name,datetime.datetime.now().strftime("%H:%M:%S")+'.avi',
+		       ExtraArgs={'ACL':'public-read', 'ContentType': 'video/x-msvideo'})
 	
 	# 버킷 이름 모두 출력
 	response = s3.list_buckets()
@@ -77,12 +78,14 @@ def aws_face_send(detect_face_name):
 	#인식 성공한 얼굴파일
 	file_name='successCap/'+detect_face_name+'.png' 
 	#s3에 png 파일 보내기
-	s3.upload_file(file_name,bucket_name,datetime.datetime.now().strftime("%Y-%m-%d")+'.png',ExtraArgs={'ACL':'public-read', 'ContentType': 'image/png'})
+	s3.upload_file(file_name,bucket_name,datetime.datetime.now().strftime("%Y-%m-%d")+'.png',
+		       ExtraArgs={'ACL':'public-read', 'ContentType': 'image/png'})
 
 	#인식 성공시점 로그 json 파일
 	json_name='result/'+detect_face_name+'.json' 
 	#s3에 json 파일 보내기
-	s3.upload_file(json_name,bucket_name,detect_face_name+'.json',ExtraArgs={'ACL':'public-read', 'ContentType': 'application/json'})
+	s3.upload_file(json_name,bucket_name,detect_face_name+'.json',ExtraArgs={'ACL':'public-read', 
+										 'ContentType': 'application/json'})
 
 	#detect_face_name+'.png'/ detect_face_name+'.json' 파일이 버킷에 올라갈 이름
 
