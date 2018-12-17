@@ -139,9 +139,7 @@ while True:
 
                 else:
                     id = "unknown"
-                    confidence = "  {0}".format(round(100 - confidence))
-
-                    
+                    confidence = "  {0}".format(round(100 - confidence))                 
                     print("얼굴인식에 실패했습니다")
                     count=count+1
                     print(count)
